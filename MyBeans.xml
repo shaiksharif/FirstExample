@@ -1,0 +1,22 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+<bean id="dao" class="com.shaik.spring.dao.daoimpl.AccountsDAOImpl"/>
+<bean id="ds" class="com.shaik.spring.service.DepositeService">
+<constructor-arg>
+<ref local="dao"/>
+</constructor-arg>
+</bean>
+<bean id="cbs" class="com.shaik.spring.service.CheckBalanceService">
+<constructor-arg ref="dao"/>
+</bean>
+<bean id="ws" class="com.shaik.spring.service.WithdrawService">
+<constructor-arg ref="dao"/>
+<constructor-arg ref="cbs"/>
+</bean>
+<bean id="taService" class="com.shaik.spring.service.TAService">
+<constructor-arg ref="ws"/>
+<constructor-arg ref="ds"/>
+</bean>
+</beans>
